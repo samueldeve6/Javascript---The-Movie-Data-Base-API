@@ -9,8 +9,22 @@ const cargarPeliculas = async() => {
     //Verificar que la respuesta sea correcta
     if(response.status === 200) {
         const data = await response.json();
-        console.log(data.title);
+
+        let peliculas = '';
+        data.results.forEach(pelicula => {
+            peliculas += `
+            <div class="pelicula">
+                <img class="poster" src="https://image.tmdb.org/t/p/w500${pelicula.poster_path}" alt="Poster de la película ${pelicula.title}">
+                <h3 class="titulo">${pelicula.title}</h3>
+                <p class="fecha">Fecha de estreno: ${pelicula.release_date}</p>
+            </div>
+            `;
+        });
+
+        document.getElementById('contenedor').innerHTML = peliculas;
+
         console.log('La solicitud fue exitosa');
+
     }else if(response.status === 401) {
         console.log('La película no fue encontrada');
     } else if(response.status === 404){
