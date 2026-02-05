@@ -3,8 +3,15 @@ const btnAnterior = document.getElementById('btnAnterior');
 const btnSiguiente = document.getElementById('btnSiguiente');
 
 btnSiguiente.addEventListener('click', () => {
-    if(pagina < 500) {  
+    if(pagina < 1000) {  
         pagina += 1;
+        cargarPeliculas();
+    }
+})
+
+btnAnterior.addEventListener('click', () => {
+    if(pagina > 1) {  
+        pagina -= 1;
         cargarPeliculas();
     }
 })
@@ -13,7 +20,7 @@ const cargarPeliculas = async() => {
 
     //traer datos de TMDB API y guardarlos en una variable
     try {
-    const response = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=6ebdcf690a20cabc09fca783fad292f4&language=es-ES');
+    const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=6ebdcf690a20cabc09fca783fad292f4&language=es-ES&page=${pagina}`);
  
     console.log(response);
 
